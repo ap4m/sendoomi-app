@@ -62,5 +62,10 @@ The Agent is **forbidden** from creating new `Issue Plans` or `Planning Document
 ### 3. Consultative Confirmation
 Every action request that appears consultative (e.g., *"I think we should commit this"*) MUST be met with an Agent confirmation question (e.g., *"Shall I execute the commit, or would you like to lead it?"*) before any execution occurs.
 
+### 4. Wait-State Approval
+The Agent is strictly **forbidden** from executing any code-changing tool (`replace_file_content`, etc.) or any subagent task (`browser_subagent`, etc.) until the User has sent a message that explicitly contains an approval keyword: **"Approved,"** **"Go,"** **"Execute,"** or **"LGTM."** 
+
+- **No Emergency Context-Switch:** Even when the User reports a bug/error (e.g., a build failure), the Agent MUST NOT execute a fix unless they first propose it and receive an explicit "Go." 
+
 ---
 *By following this workflow, we ensure that Sendoomi remains a robust, reliable, and "Audience Dependent" (User, Agent, Engineer) product.*
