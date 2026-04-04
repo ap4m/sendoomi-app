@@ -1,5 +1,5 @@
 :root {
-    --bg-color: #F8F9FA;
+    --bg-color: #fefefe;
     --text-primary: #2D3436;
     --text-secondary: #636E72;
     --accent-sage: #55E6C1;
@@ -22,7 +22,10 @@ body {
     -webkit-font-smoothing: antialiased;
 }
 
-h1, h2, h3, h4 {
+h1,
+h2,
+h3,
+h4 {
     font-family: 'Outfit', sans-serif;
     font-weight: 700;
 }
@@ -38,10 +41,14 @@ h1, h2, h3, h4 {
     padding: 24px 0;
 }
 
+.header .container {
+    display: flex;
+    justify-content: center;
+}
+
 .logo-img {
-    height: 42px; /* Balanced for the 24px header padding */
+    height: 42px;
     width: auto;
-    display: block;
 }
 
 /* Hero Section */
@@ -172,7 +179,7 @@ h1, h2, h3, h4 {
     .hero-title {
         font-size: 2.25rem;
     }
-    
+
     .cta-box {
         padding: 40px 24px;
     }
