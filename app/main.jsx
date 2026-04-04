@@ -2,7 +2,7 @@ import React from 'react';
 import ReactDOM from 'react-dom/client';
 import App from './App';
 import './app.css';
-// import './services/analytics.js'; // Isolated for diagnostic recovery
+import './services/analytics.js';
 
 console.log('Sendoomi Shell: Bootstrapping...');
 

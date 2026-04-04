@@ -57,5 +57,23 @@ To enable automated [**Cloudflare Previews**](./adr/002_move_to_cloudflare_pages
 1. **`CLOUDFLARE_API_TOKEN`**: Create this at [dash.cloudflare.com/profile/api-tokens](https://dash.cloudflare.com/profile/api-tokens) using the 'Edit Cloudflare Pages' template.
 2. **`CLOUDFLARE_ACCOUNT_ID`**: Found in your Cloudflare Dashboard URL or the 'Overview' sidebar.
 
+## 🌐 Cloudflare Setup Runbook
+To support Sendoomi's [**Subdomain Architecture**](./workflow.md), you must establish two independent projects in your Cloudflare Dashboard.
+
+### 1. Create the Pages Projects
+Go to **Workers & Pages > Create application > Pages > Connect to Git** and create two separate projects bound to this repository:
+- **`sendoomi-app`**: Set the **Build Command** to `npm run build:app` and the **Output Directory** to `dist/app`.
+
+### 2. Bind Deployment Secrets (GitHub)
+In your GitHub Repository settings, add the following **Actions Secrets**:
+- **`CLOUDFLARE_API_TOKEN`**: Created at [dash.cloudflare.com/profile/api-tokens](https://dash.cloudflare.com/profile/api-tokens).
+- **`CLOUDFLARE_ACCOUNT_ID`**: Found in your Cloudflare URL.
+
+### 3. Bind Web Analytics (Privacy First)
+1. Go to **Web Analytics** in the Cloudflare Dashboard.
+2. Add a site (or use an existing one) to get your **JS Snippet**.
+3. Identify the `token` value in the snippet (e.g., `"token": "abc123..."`).
+4. Add this as a **GitHub Secret** named [**`VITE_CF_BEACON_TOKEN`**](../.env.example). Our build pipeline will automatically inject this into the production HTML.
+
 ## 🏗 Developing "Feedback First"
 Before making any changes, please read our [**Workflow Guide**](./workflow.md) and our latest [**Planning Document**](./planning/issue_001_zero_day_pipeline.md) to understand our **RED-GREEN-REFACTOR** and **Iteration** standards.
