@@ -50,5 +50,17 @@ If an implementation becomes non-linear (e.g., unexpected hurdles, agent confusi
 - **Action:** Create a **Postmortem/Deviation Document** using the [**Deviation Template**](../.github/templates/deviation_template.md).
 - **Goal:** Capture the problem, circumstances, and remediation steps to prevent recurrence.
 
+## 🛑 Agent Guardrails (Hard-Stop Protocol)
+To ensure **User-Led Control** and prevent "Goal-Completion Obsession," the AI Agent must adhere to the following hard-stops:
+
+### 1. Forbidden Git Actions
+The Agent is strictly **forbidden** from performing [**`git commit`**](../package.json) or [**`git push`**](../package.json) commands unless the User provides a literal, verbatim instruction to do so. The User remains the sole author of the project's history.
+
+### 2. Unauthorized Scope Expansion
+The Agent is **forbidden** from creating new `Issue Plans` or `Planning Documents` unless the User explicitly requests the start of a new issue.
+
+### 3. Consultative Confirmation
+Every action request that appears consultative (e.g., *"I think we should commit this"*) MUST be met with an Agent confirmation question (e.g., *"Shall I execute the commit, or would you like to lead it?"*) before any execution occurs.
+
 ---
 *By following this workflow, we ensure that Sendoomi remains a robust, reliable, and "Audience Dependent" (User, Agent, Engineer) product.*
