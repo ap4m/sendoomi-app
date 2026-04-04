@@ -1,0 +1,28 @@
+{
+  "name": "sendoomi-app",
+  "private": true,
+  "version": "0.1.0",
+  "type": "module",
+  "description": "A calm, binary choice-engine for kids with SEND.",
+  "scripts": {
+    "dev": "vite",
+    "build": "vite build",
+    "preview": "vite preview",
+    "test": "vitest"
+  },
+  "dependencies": {
+    "idb": "^8.0.0"
+  },
+  "devDependencies": {
+    "vite": "^5.0.0",
+    "vitest": "^1.0.0",
+    "vite-plugin-pwa": "^0.17.0"
+  },
+  "keywords": [
+    "SEND",
+    "PWA",
+    "Local-First",
+    "Accessibility",
+    "CalmUI"
+  ]
+}
