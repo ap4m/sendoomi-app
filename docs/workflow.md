@@ -1,37 +1,48 @@
-# Workflow: RED-GREEN-REFACTOR
+# Development Philosophy: Feedback First
 
-Sendoomi is developed using strict **Test-Driven Development (TDD)** and **Domain-Driven Design (DDD)**. 
+Sendoomi is developed with **Feedback as a First-Class Citizen**. We believe that building "Feedback Loops" into the process allows us to maintain a linear, predictable, and robust development pace.
 
-## 🔄 The Cycle
+## 🔄 The Feedback Lifecycle
 
-### 1. RED (Antigravity's Turn)
-- **Goal:** Define a new requirement with a failing test.
-- **Action:** Antigravity writes a `*.test.js` or `*.spec.js` file using **Vitest**. 
-- **Requirement:** The test must accurately describe the domain behavior (e.g., `should_add_item_to_curation_list_on_share`).
-- **Wait:** Antigravity shows the test failing (RED) and waits for a "GO" signal if needed, or proceeds to Green if an autonomous turn is in progress.
+Every feature or bugfix follows this strict sequence to minimize risk and maximize "Developer Zen."
 
-### 2. GREEN (Antigravity's Turn)
-- **Goal:** Make the test pass with minimal implementation.
-- **Action:** Antigravity implements the logic in the target source file.
-- **Constraint:** No "over-engineering." Only enough code to satisfy the test.
+### 1. The Context (Issue & Branch)
+- **Action:** A GitHub Issue defines the problem/goal.
+- **Mapping:** One Issue = One Branch.
+- **Sign-off:** The User performs the final merge and sign-off.
 
-### 3. REFACTOR (User & Antigravity Partnership)
-- **Goal:** Clean up the "Green" mess, rename variables, and ensure DDD alignment.
-- [x] **REFACTOR:** **You (the User) lead the refactor.** 
-    - Is the "Language" of the code (Ubiquitous Language) matching our `docs`? 
-    - Are we leaking infrastructure (IndexedDB) into our domain logic?
-    - Are we keeping the "Calm UI" principles?
+### 2. The Feedback Loop (Planning)
+- **Action:** A **Planning Document** is created based on the Issue.
+- **DDD Focus:** Establish the **Ubiquitous Language** and domain model here. The names we use in the plan MUST be the names we use in the code.
+- **Decision:** The plan ends with a "Go/No-Go" decision:
+    - **Go:** Proceed with the implementation.
+    - **Postpone:** Move to a future milestone.
+    - **Ditch:** The issue is invalid or better solved elsewhere.
+- **Iteration:** Complex goals are broken into small, low-risk iterations.
 
-- [x] **SIGN-OFF (Commit & Push):** **You (the User) are in exclusive control of the repository's history.**
-    - Antigravity should only *read* from Git (status, log, diff).
-    - You will perform the `git commit` and `git push` yourself.
-    - Your commit acts as the final sign-off that you are happy with the state of the work and the workflow.
+### 3. The Execution (RED-GREEN-REFACTOR)
+We use strict **TDD** (Test-Driven Development) to ensure the code *always* provides feedback on its own correctness.
+- **RED:** Define the requirement with a failing Vitest test using our agreed domain language.
+- **GREEN:** Implement the minimal code to pass.
+- **REFACTOR (User-Led):** Technical cleanup and structural optimization (the domain model should already be correct).
 
-## 🧩 DDD Concepts in Sendoomi
-- **Aggregate:** `CurationList` (The collection of items).
-- **Entity:** `CurationItem` (The Individual link/picture).
-- **Value Object:** `Choice` (The binary Yes/No result).
-- **Service:** `LinkExtractor` (The logic that turns a URL into a `CurationItem`).
+### 4. The Verification (Pipeline & Previews)
+- **Action:** Every push must trigger a **Working Deployment Pipeline**.
+- **Visibility:** Code changes must be verifiable via automated tests and (where applicable) marketing/UI previews.
+
+### 5. The Closing Loop (ADR & Retro)
+- **ADR (Architectural Decision Records):** Any decision that changes the system's shape is documented using the [**ADR Template**](../.github/templates/adr_template.md).
+- **Retrospective:** Performed after every branch merge using the [**Retrospective Template**](../.github/templates/retrospective_template.md).
+
+### 6. Audience-Centric Handover
+Before a branch is closed, we must provide documentation tailored to our distinct audiences:
+- **For Parents (End Users):** A "What it does" guide focused on functionality, accessibility, and the "Calm UI" experience.
+- **For Engineers (Agents & Humans):** A "How it works and Why" technical breakdown of the implementation, trade-offs, and future extensibility.
+
+## ⚠️ The "Deviation" Principle
+If an implementation becomes non-linear (e.g., unexpected hurdles, agent confusion, or abandoned paths), we **STOP** and document the deviation.
+- **Action:** Create a **Postmortem/Deviation Document** using the [**Deviation Template**](../.github/templates/deviation_template.md).
+- **Goal:** Capture the problem, circumstances, and remediation steps to prevent recurrence.
 
 ---
-*If regression occurs, we revert to smaller, manual RED-wait-GREEN steps.*
+*By following this workflow, we ensure that Sendoomi remains a robust, reliable, and "Audience Dependent" (User, Agent, Engineer) product.*
