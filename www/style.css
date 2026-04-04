@@ -47,8 +47,9 @@ h4 {
 }
 
 .logo-img {
-    height: 42px;
-    width: auto;
+    width: 100%;
+    max-width: 420px; /* Native width of the artifact */
+    height: auto;
     mix-blend-mode: multiply; /* Blends white backgrounds into the page surface */
 }
 
