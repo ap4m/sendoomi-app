@@ -1,19 +1,15 @@
 import { defineConfig } from 'vite';
 import react from '@vitejs/plugin-react';
-import { resolve } from 'path';
 
 // https://vitejs.dev/config/
 export default defineConfig({
   plugins: [react()],
+  // Note: Root and Build output are now controlled via package.json scripts
+  // to ensure 'Subdomain Parity' (running as / in both environments).
   build: {
-    rollupOptions: {
-      input: {
-        main: resolve(__dirname, 'index.html'),
-        app: resolve(__dirname, 'app/index.html'),
-      },
-    },
+    emptyOutDir: true,
   },
   server: {
-    open: '/app/index.html', // Default to Choice Engine during development
+    open: true,
   },
 });

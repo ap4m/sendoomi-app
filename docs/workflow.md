@@ -30,6 +30,12 @@ We use strict **TDD** (Test-Driven Development) to ensure the code *always* prov
 - **Action:** Every push must trigger a **Working Deployment Pipeline**.
 - **Visibility:** Code changes must be verifiable via automated tests and (where applicable) marketing/UI previews.
 
+#### 4.1 Logic & Path Audit (Surgical Standard)
+To prevent "Config Blindness" and "Asset Drift," every change to the project root or build environment MUST include:
+- **Explicit Config:** Verify that Vite explicitly points to its central [**`vite.config.js`**](../vite.config.js) to ensure plugin integrity.
+- **Surgical Asset Import:** Avoid "Lazy Copies" of assets. All assets MUST be imported via the Vite asset-pipeline (e.g., `import logo from './assets/logo.png'`) to ensure production hashing correctness.
+- **Mandatory Smoke Test:** Every sign-off must be preceded by a local [**`npm run preview`**](../package.json) and a browser console audit for runtime errors.
+
 ### 5. The Closing Loop (ADR & Retro)
 - **ADR (Architectural Decision Records):** Any decision that changes the system's shape is documented using the [**ADR Template**](../.github/templates/adr_template.md).
 - **Retrospective:** Performed after every branch merge using the [**Retrospective Template**](../.github/templates/retrospective_template.md).

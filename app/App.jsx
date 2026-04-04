@@ -1,8 +1,10 @@
+import logo from './assets/logo.png';
+
 function App() {
   return (
     <div className="app-container">
       <header className="app-header">
-        <img src="../assets/logo.png" alt="Sendoomi" className="logo" style={{ mixBlendMode: 'multiply' }} />
+        <img src={logo} alt="Sendoomi" className="logo" style={{ mixBlendMode: 'multiply' }} />
       </header>
       <main className="app-main">
         <h1>Welcome to the Choice Engine</h1>
