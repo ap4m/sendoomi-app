@@ -8,11 +8,16 @@ It empowers children to make independent choices from a parent-curated list of i
 To provide a calm, binary, and accessible "choice engine" that bridges the communication gap between SEND children and their carers regarding real-world gifts and experiences.
 
 ## 🛠 Tech Stack
-- **Framework:** Vite + Vanilla JS/React (to be confirmed in first code session)
-- **Deployment:** Cloudflare Pages
-- **Architecture:** PWA (Progressive Web App) with Share Target capabilities.
-- **Storage:** Local-first via **IndexedDB** (No-Auth, No-Backend for V1).
+- **Framework:** Vite + Vanilla JS (PWA focus)
+- **Deployment:** GitHub Pages (www) + Cloudflare Pages (app)
+- **Architecture:** Local-first via IndexedDB (No-Auth V1).
 - **Testing:** Vitest (Strict TDD: RED-GREEN-REFACTOR).
+
+## 🤖 AI Agent Onboarding
+**CRITICAL:** If you are an AI agent, you **MUST** run the following workflow before making any changes:
+- **/restore-context**: [**.agents/workflows/restore-context.md**](file:///home/richardarpino/Dev/ap4m/sendoomi-app/.agents/workflows/restore-context.md)
+
+This workflow verifies the mission, working patterns (TDD), and your "Read-Only" status for Git commits.
 
 ## 🤝 How We Work
 We follow a disciplined **RED-GREEN-REFACTOR** pattern:
