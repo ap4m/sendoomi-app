@@ -17,11 +17,15 @@ Sendoomi is developed using strict **Test-Driven Development (TDD)** and **Domai
 
 ### 3. REFACTOR (User & Antigravity Partnership)
 - **Goal:** Clean up the "Green" mess, rename variables, and ensure DDD alignment.
-- **Action:** **The User leads the refactor.** 
-- **Focus:** 
+- [x] **REFACTOR:** **You (the User) lead the refactor.** 
     - Is the "Language" of the code (Ubiquitous Language) matching our `docs`? 
     - Are we leaking infrastructure (IndexedDB) into our domain logic?
     - Are we keeping the "Calm UI" principles?
+
+- [x] **SIGN-OFF (Commit & Push):** **You (the User) are in exclusive control of the repository's history.**
+    - Antigravity should only *read* from Git (status, log, diff).
+    - You will perform the `git commit` and `git push` yourself.
+    - Your commit acts as the final sign-off that you are happy with the state of the work and the workflow.
 
 ## 🧩 DDD Concepts in Sendoomi
 - **Aggregate:** `CurationList` (The collection of items).
