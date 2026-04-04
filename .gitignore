@@ -1,0 +1,32 @@
+# Dependencies
+node_modules/
+.pnp
+.pnp.js
+
+# Build Output
+dist/
+build/
+.temp/
+
+# Testing
+coverage/
+*.lcov
+
+# Environment & Secrets
+.env
+.env.local
+.env.*.local
+*.log
+
+# System/IDE
+.DS_Store
+.idea/
+.vscode/
+*.suo
+*.ntvs*
+*.njsproj
+*.sln
+*.sw?
+
+# Vite/Vitest
+.vitest.result.json
