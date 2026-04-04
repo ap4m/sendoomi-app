@@ -38,9 +38,10 @@ h1, h2, h3, h4 {
     padding: 24px 0;
 }
 
-.logo {
-    font-size: 1.5rem;
-    color: var(--text-primary);
+.logo-img {
+    height: 42px; /* Balanced for the 24px header padding */
+    width: auto;
+    display: block;
 }
 
 /* Hero Section */
