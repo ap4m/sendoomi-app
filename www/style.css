@@ -49,6 +49,7 @@ h4 {
 .logo-img {
     height: 42px;
     width: auto;
+    mix-blend-mode: multiply; /* Blends white backgrounds into the page surface */
 }
 
 /* Hero Section */
