@@ -5,9 +5,10 @@
   "type": "module",
   "description": "A calm, binary choice-engine for kids with SEND.",
   "scripts": {
+    "clean": "rm -rf dist",
     "dev": "vite app --config vite.config.js",
     "dev:www": "vite www --config vite.config.js",
-    "build": "npm run build:app && npm run build:www",
+    "build": "npm run clean && npm run build:app && npm run build:www",
     "build:app": "vite build app --config vite.config.js --outDir ../dist/app --emptyOutDir",
     "build:www": "vite build www --config vite.config.js --outDir ../dist/www --emptyOutDir",
     "preview": "wrangler pages dev dist/app",

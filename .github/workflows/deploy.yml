@@ -7,6 +7,11 @@ on:
     branches: ["main"]
   workflow_dispatch:
 
+# Ensure only one deployment runs at a time per branch
+concurrency:
+  group: ${{ github.workflow }}-${{ github.ref }}
+  cancel-in-progress: true
+
 permissions:
   contents: read
   deployments: write
@@ -58,6 +63,8 @@ jobs:
           projectName: "sendoomi-www"
           directory: "dist/www"
           gitHubToken: ${{ secrets.GITHUB_TOKEN }}
+          # Explicitly set branch for Direct Upload preview mapping
+          branch: ${{ github.head_ref || github.ref_name }}
 
       - name: Deploy App (app.sendoomi.com)
         uses: cloudflare/pages-action@v1
@@ -67,3 +74,5 @@ jobs:
           projectName: "sendoomi-app"
           directory: "dist/app"
           gitHubToken: ${{ secrets.GITHUB_TOKEN }}
+          # Explicitly set branch for Direct Upload preview mapping
+          branch: ${{ github.head_ref || github.ref_name }}
