@@ -30,6 +30,12 @@ We use strict **TDD** (Test-Driven Development) to ensure the code *always* prov
 - **Action:** Every push must trigger a **Working Deployment Pipeline**.
 - **Visibility:** Code changes must be verifiable via automated tests and (where applicable) marketing/UI previews.
 
+#### 4.1 Logic & Path Audit (Surgical Standard)
+To prevent "Config Blindness" and "Asset Drift," every change to the project root or build environment MUST include:
+- **Explicit Config:** Verify that Vite explicitly points to its central [**`vite.config.js`**](../vite.config.js) to ensure plugin integrity.
+- **Surgical Asset Import:** Avoid "Lazy Copies" of assets. All assets MUST be imported via the Vite asset-pipeline (e.g., `import logo from './assets/logo.png'`) to ensure production hashing correctness.
+- **Mandatory Smoke Test:** Every sign-off must be preceded by a local [**`npm run preview`**](../package.json) and a browser console audit for runtime errors.
+
 ### 5. The Closing Loop (ADR & Retro)
 - **ADR (Architectural Decision Records):** Any decision that changes the system's shape is documented using the [**ADR Template**](../.github/templates/adr_template.md).
 - **Retrospective:** Performed after every branch merge using the [**Retrospective Template**](../.github/templates/retrospective_template.md).
@@ -43,6 +49,23 @@ Before a branch is closed, we must provide documentation tailored to our distinc
 If an implementation becomes non-linear (e.g., unexpected hurdles, agent confusion, or abandoned paths), we **STOP** and document the deviation.
 - **Action:** Create a **Postmortem/Deviation Document** using the [**Deviation Template**](../.github/templates/deviation_template.md).
 - **Goal:** Capture the problem, circumstances, and remediation steps to prevent recurrence.
+
+## 🛑 Agent Guardrails (Hard-Stop Protocol)
+To ensure **User-Led Control** and prevent "Goal-Completion Obsession," the AI Agent must adhere to the following hard-stops:
+
+### 1. Forbidden Git Actions
+The Agent is strictly **forbidden** from performing [**`git commit`**](../package.json) or [**`git push`**](../package.json) commands unless the User provides a literal, verbatim instruction to do so. The User remains the sole author of the project's history.
+
+### 2. Unauthorized Scope Expansion
+The Agent is **forbidden** from creating new `Issue Plans` or `Planning Documents` unless the User explicitly requests the start of a new issue.
+
+### 3. Consultative Confirmation
+Every action request that appears consultative (e.g., *"I think we should commit this"*) MUST be met with an Agent confirmation question (e.g., *"Shall I execute the commit, or would you like to lead it?"*) before any execution occurs.
+
+### 4. Wait-State Approval
+The Agent is strictly **forbidden** from executing any code-changing tool (`replace_file_content`, etc.) or any subagent task (`browser_subagent`, etc.) until the User has sent a message that explicitly contains an approval keyword: **"Approved,"** **"Go,"** **"Execute,"** or **"LGTM."** 
+
+- **No Emergency Context-Switch:** Even when the User reports a bug/error (e.g., a build failure), the Agent MUST NOT execute a fix unless they first propose it and receive an explicit "Go." 
 
 ---
 *By following this workflow, we ensure that Sendoomi remains a robust, reliable, and "Audience Dependent" (User, Agent, Engineer) product.*

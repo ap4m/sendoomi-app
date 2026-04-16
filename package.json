@@ -5,18 +5,36 @@
   "type": "module",
   "description": "A calm, binary choice-engine for kids with SEND.",
   "scripts": {
-    "dev": "vite",
-    "build": "vite build",
-    "preview": "vite preview",
+    "clean": "rm -rf dist",
+    "dev": "vite app --config vite.config.js --host",
+    "dev:www": "vite www --config vite.config.js --host",
+    "build": "npm run clean && npm run build:app && npm run build:www",
+    "build:app": "vite build app --config vite.config.js --outDir ../dist/app --emptyOutDir",
+    "build:www": "vite build www --config vite.config.js --outDir ../dist/www --emptyOutDir",
+    "preview": "wrangler pages dev dist/app",
+    "preview:www": "wrangler pages dev dist/www",
+    "deploy": "npm run deploy:app && npm run deploy:www",
+    "deploy:app": "wrangler pages deploy dist/app",
+    "deploy:www": "wrangler pages deploy dist/www",
     "test": "vitest"
   },
   "dependencies": {
-    "idb": "^8.0.0"
+    "idb": "^8.0.0",
+    "react": "^19.2.4",
+    "react-dom": "^19.2.4"
   },
   "devDependencies": {
-    "vite": "^5.0.0",
-    "vitest": "^1.0.0",
-    "vite-plugin-pwa": "^0.17.0"
+    "@vitejs/plugin-react": "^4.7.0",
+    "vite": "^6.4.2",
+    "vite-plugin-mkcert": "^1.17.12",
+    "vite-plugin-pwa": "^0.21.2",
+    "vitest": "^2.1.9",
+    "wrangler": "^4.80.0"
+  },
+  "overrides": {
+    "esbuild": "^0.25.0",
+    "serialize-javascript": "^7.0.5",
+    "vite": "^6.4.2"
   },
   "keywords": [
     "SEND",

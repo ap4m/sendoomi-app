@@ -1,0 +1,76 @@
+:root {
+  --color-bg: #fefefe;
+  --color-text: #1a1a1a;
+  --color-muted: #666;
+  --color-success: #4ade80;
+  --font-main: 'Inter', sans-serif;
+  --font-header: 'Outfit', sans-serif;
+}
+
+body {
+  margin: 0;
+  background-color: var(--color-bg);
+  color: var(--color-text);
+  font-family: var(--font-main);
+  -webkit-font-smoothing: antialiased;
+}
+
+.app-container {
+  display: flex;
+  flex-direction: column;
+  min-height: 100vh;
+  padding: 2rem;
+  max-width: 800px;
+  margin: 0 auto;
+}
+
+.logo {
+  height: 60px;
+  width: auto;
+}
+
+.app-main {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  text-align: center;
+}
+
+h1 {
+  font-family: var(--font-header);
+  font-size: 2.5rem;
+  margin-bottom: 0.5rem;
+}
+
+.subtitle {
+  color: var(--color-muted);
+  font-size: 1.2rem;
+  margin-bottom: 2rem;
+}
+
+.status-card {
+  background: #fff;
+  padding: 1rem 2rem;
+  border-radius: 12px;
+  box-shadow: 0 4px 6px -1px rgb(0 0 0 / 0.1);
+  display: flex;
+  align-items: center;
+  gap: 12px;
+}
+
+.status-dot {
+  width: 10px;
+  height: 10px;
+  background-color: var(--color-success);
+  border-radius: 50%;
+  box-shadow: 0 0 8px var(--color-success);
+}
+
+.app-footer {
+  text-align: center;
+  color: var(--color-muted);
+  font-size: 0.9rem;
+  padding-top: 2rem;
+}
