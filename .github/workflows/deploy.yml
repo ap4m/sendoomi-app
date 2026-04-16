@@ -55,23 +55,13 @@ jobs:
         run: npm run build
 
       - name: Deploy Marketing (sendoomi.com)
-        uses: cloudflare/pages-action@v1
-        with:
-          apiToken: ${{ secrets.CLOUDFLARE_API_TOKEN }}
-          accountId: ${{ secrets.CLOUDFLARE_ACCOUNT_ID }}
-          projectName: "sendoomi-www"
-          directory: "dist/www"
-          gitHubToken: ${{ secrets.GITHUB_TOKEN }}
-          # Explicitly set branch for Direct Upload preview mapping
-          branch: ${{ github.head_ref || github.ref_name }}
+        run: npx wrangler pages deploy dist/www --project-name=sendoomi-www --branch=${{ github.head_ref || github.ref_name }}
+        env:
+          CLOUDFLARE_API_TOKEN: ${{ secrets.CLOUDFLARE_API_TOKEN }}
+          CLOUDFLARE_ACCOUNT_ID: ${{ secrets.CLOUDFLARE_ACCOUNT_ID }}
 
       - name: Deploy App (app.sendoomi.com)
-        uses: cloudflare/pages-action@v1
-        with:
-          apiToken: ${{ secrets.CLOUDFLARE_API_TOKEN }}
-          accountId: ${{ secrets.CLOUDFLARE_ACCOUNT_ID }}
-          projectName: "sendoomi-app"
-          directory: "dist/app"
-          gitHubToken: ${{ secrets.GITHUB_TOKEN }}
-          # Explicitly set branch for Direct Upload preview mapping
-          branch: ${{ github.head_ref || github.ref_name }}
+        run: npx wrangler pages deploy dist/app --project-name=sendoomi-app --branch=${{ github.head_ref || github.ref_name }}
+        env:
+          CLOUDFLARE_API_TOKEN: ${{ secrets.CLOUDFLARE_API_TOKEN }}
+          CLOUDFLARE_ACCOUNT_ID: ${{ secrets.CLOUDFLARE_ACCOUNT_ID }}
