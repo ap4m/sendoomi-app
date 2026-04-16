@@ -40,6 +40,11 @@ function App() {
             <p><strong>Title:</strong> {sharedData.title || 'N/A'}</p>
             <p><strong>Text:</strong> {sharedData.text || 'N/A'}</p>
             <p><strong>URL:</strong> <a href={sharedData.link} target="_blank" rel="noreferrer">{sharedData.link}</a></p>
+            
+            {/* Zen Debug Bar */}
+            <div style={{ marginTop: '1rem', fontSize: '10px', color: '#666', borderTop: '1px solid #eee', paddingTop: '0.5rem' }}>
+              <strong>Raw Debug:</strong> {window.location.search || 'No query params'}
+            </div>
           </div>
         )}
 
