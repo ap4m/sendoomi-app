@@ -14,7 +14,7 @@ export default defineConfig(({ mode }) => {
     envDir: '../',       
     plugins: [
       react(),
-      mkcert({
+      !process.env.VITEST && mkcert({
         hosts: ['localhost', 'dev.sendoomi.com'],
         savePath: './.devcerts'
       }),
@@ -88,6 +88,11 @@ export default defineConfig(({ mode }) => {
           searchForWorkspaceRoot(process.cwd())
         ]
       }
+    },
+    test: {
+      environment: 'jsdom',
+      globals: true,
+      setupFiles: ['./app/setupTests.js'],
     },
   };
 });

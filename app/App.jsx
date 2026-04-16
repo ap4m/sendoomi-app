@@ -1,28 +1,15 @@
 import { useState, useEffect } from 'react';
 import logo from './assets/logo.png';
+import { parseSharedData } from './services/ingest';
 
 function App() {
   const [sharedData, setSharedData] = useState(null);
 
   useEffect(() => {
-    const rawSearch = window.location.search;
-    const params = new URLSearchParams(rawSearch);
-    const title = params.get('title');
-    const text = params.get('text');
-    // Check both 'link' (new) and 'url' (old/fallback) to handle cached manifests
-    const link = params.get('link') || params.get('url');
+    const data = parseSharedData(window.location.search);
 
-    if (title || text || link) {
-      let finalLink = link;
-
-      // If link is missing, try to extract it from the text (common on Android)
-      if (!finalLink && text) {
-        const urlRegex = /(https?:\/\/[^\s]+)/g;
-        const found = text.match(urlRegex);
-        if (found) finalLink = found[0];
-      }
-
-      setSharedData({ title, text, link: finalLink });
+    if (data) {
+      setSharedData(data);
       // Clear URL parameters to prevent re-capturing on refresh
       window.history.replaceState({}, document.title, window.location.pathname);
     }
