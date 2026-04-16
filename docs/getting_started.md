@@ -100,3 +100,21 @@ In your GitHub Repository settings, add the following **Actions Secrets**:
 
 ## 🏗 Developing "Feedback First"
 Before making any changes, please read our [**Workflow Guide**](./workflow.md) and our latest [**Planning Document**](./planning/issue_001_zero_day_pipeline.md) to understand our **RED-GREEN-REFACTOR** and **Iteration** standards.
+
+## 📱 Verifying PWA Features
+
+Sendoomi is a Progressive Web App (PWA). To verify that the manifest and service worker are working correctly during local development:
+
+### 1. Enable PWA in DevTools
+1. Navigate to `https://dev.sendoomi.com`.
+2. Open **DevTools** > **Application** tab.
+3. Check the **Manifest** and **Service Workers** sections. They should be detected and active.
+
+### 2. Testing Ingestion (Share Target)
+Since the "Send To" menu is a mobile feature, you can trigger the ingestion logic manually on your laptop:
+- Visit: `https://dev.sendoomi.com/?title=Test&link=https://example.com`
+- Verify the green **"Item Received"** card appears on the dashboard.
+
+### ⚠️ Common Caveats
+- **Desktop Firefox:** Does not support the "Install" prompt. Use Chrome/Edge to verify installation logic.
+- **Incognito Mode:** Most browsers disable PWA features (Service Workers/Installation) in private windows. Use a standard window for testing.
