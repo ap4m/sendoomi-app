@@ -3,15 +3,18 @@ import logo from './assets/logo.png';
 
 function App() {
   const [sharedData, setSharedData] = useState(null);
+  const [debugQuery, setDebugQuery] = useState('');
 
   useEffect(() => {
-    const params = new URLSearchParams(window.location.search);
+    const rawSearch = window.location.search;
+    const params = new URLSearchParams(rawSearch);
     const title = params.get('title');
     const text = params.get('text');
     // Check both 'link' (new) and 'url' (old/fallback) to handle cached manifests
     const link = params.get('link') || params.get('url');
 
     if (title || text || link) {
+      setDebugQuery(rawSearch);
       setSharedData({ title, text, link });
       // Clear URL parameters to prevent re-capturing on refresh
       window.history.replaceState({}, document.title, window.location.pathname);
@@ -43,7 +46,7 @@ function App() {
             
             {/* Zen Debug Bar */}
             <div style={{ marginTop: '1rem', fontSize: '10px', color: '#666', borderTop: '1px solid #eee', paddingTop: '0.5rem' }}>
-              <strong>Raw Debug:</strong> {window.location.search || 'No query params'}
+              <strong>Raw Debug:</strong> {debugQuery || 'No query params captured'}
             </div>
           </div>
         )}
