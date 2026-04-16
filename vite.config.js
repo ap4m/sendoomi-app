@@ -3,8 +3,9 @@ import react from '@vitejs/plugin-react';
 
 // https://vitejs.dev/config/
 export default defineConfig({
-  root: process.cwd(), // Default to current directory
-  envDir: '../',       // Pull .env from project root even for decoupled app/www builds
+  // envDir: '../' is correct when 'root' is set to app/ or www/ folders
+  // to pick up the shared .env file from the project root.
+  envDir: '../',       
   plugins: [react()],
   // Note: Root and Build output are now controlled via package.json scripts
   // to ensure 'Subdomain Parity' (running as / in both environments).
