@@ -15,6 +15,10 @@ function App() {
     }
   }, []);
 
+  const gitHash = import.meta.env.VITE_GIT_HASH 
+    ? ` [${import.meta.env.VITE_GIT_HASH.substring(0, 7)}]` 
+    : '';
+
   return (
     <div className="app-container">
       <header className="app-header">
@@ -47,7 +51,7 @@ function App() {
         </div>
       </main>
       <footer className="app-footer">
-        <p>Sendoomi Build v0.1.1-alpha</p>
+        <p>Sendoomi Build v0.1.1-alpha{gitHash}</p>
       </footer>
     </div>
   );

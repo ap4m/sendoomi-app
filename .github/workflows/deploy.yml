@@ -55,6 +55,7 @@ jobs:
         run: npm run build
         env:
           VITE_CF_BEACON_TOKEN: ${{ secrets.VITE_CF_BEACON_TOKEN }}
+          VITE_GIT_HASH: ${{ github.sha }}
 
       - name: Deploy Marketing (sendoomi.com)
         run: npx wrangler pages deploy dist/www --project-name=sendoomi-www --branch=${{ github.head_ref || github.ref_name }}
