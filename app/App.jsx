@@ -2,6 +2,7 @@ import { useState, useEffect } from 'react';
 import logo from './assets/logo.png';
 import { parseSharedData } from './services/ingest';
 import * as storage from './services/storage';
+import { fetchMetadata } from './services/metadata';
 
 function App() {
   const [items, setItems] = useState([]);
@@ -21,9 +22,27 @@ function App() {
 
     if (data) {
       const persistAndSync = async () => {
-        await storage.saveLink(data);
-        const updatedItems = await storage.getAllLinks();
-        setItems(updatedItems);
+        // 1. Persist the basic link info first (minimal viable data)
+        const id = await storage.saveLink(data);
+        
+        // Initial sync of the item from storage to get the ID and timestamp
+        let savedItems = await storage.getAllLinks();
+        setItems(savedItems);
+
+        // 2. Attempt to enrich with metadata (visuals) if a link exists
+        if (data.link) {
+          const metadata = await fetchMetadata(data.link);
+          if (metadata.imageUrl) {
+            const currentItem = savedItems.find(i => i.id === id);
+            if (currentItem) {
+              await storage.updateLink({ ...currentItem, imageUrl: metadata.imageUrl });
+              
+              // 3. Final sync to show the image
+              const enrichedItems = await storage.getAllLinks();
+              setItems(enrichedItems);
+            }
+          }
+        }
       };
       
       persistAndSync();
@@ -51,9 +70,16 @@ function App() {
             items.map((item) => (
               <div key={item.id} className="share-echo-card">
                 <h3>🎁 Item Received</h3>
-                <p><strong>Title:</strong> {item.title || 'N/A'}</p>
-                <p><strong>Text:</strong> {item.text || 'N/A'}</p>
-                <p><strong>URL:</strong> <a href={item.link} target="_blank" rel="noreferrer">{item.link}</a></p>
+                {item.imageUrl && (
+                  <div className="product-preview">
+                    <img src={item.imageUrl} alt={item.title || 'Product'} />
+                  </div>
+                )}
+                <div className="item-details">
+                  <p><strong>Title:</strong> {item.title || 'N/A'}</p>
+                  <p><strong>Text:</strong> {item.text || 'N/A'}</p>
+                  <p><strong>URL:</strong> <a href={item.link} target="_blank" rel="noreferrer" className="truncate">{item.link}</a></p>
+                </div>
               </div>
             ))
           ) : (

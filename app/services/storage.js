@@ -35,6 +35,16 @@ export async function saveLink(data) {
 }
 
 /**
+ * Updates an existing link record.
+ * 
+ * @param {object} data - The full record including 'id'
+ */
+export async function updateLink(data) {
+  const db = await initDB();
+  return db.put(STORE_NAME, data);
+}
+
+/**
  * Retrieves all saved links, sorted by timestamp (newest first).
  */
 export async function getAllLinks() {

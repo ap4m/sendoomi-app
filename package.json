@@ -16,7 +16,8 @@
     "deploy": "npm run deploy:app && npm run deploy:www",
     "deploy:app": "wrangler pages deploy dist/app",
     "deploy:www": "wrangler pages deploy dist/www",
-    "test": "vitest"
+    "test": "vitest run",
+    "test:watch": "vitest"
   },
   "dependencies": {
     "idb": "^8.0.0",
