@@ -7,8 +7,9 @@ Sendoomi is developed using tight feedback loops to ensure that every change is 
 Every change follows the **"One Outcome = One Change"** rule. A change is triggered by an Issue with a specific, outcome-focused Goal.
 
 ### 1. Planning Phase
-- **Action:** A Planning Document is created to map the path to the Goal.
-- **Outcome:** The plan defines the "Go/No-Go" gate. We only proceed once the outcome is clearly understood and approved.
+- **Draft Implementation Plan:** The Agent creates a tactical `implementation_plan.md` (with iterations) to reason through the Goal.
+- **Snapshot Contract:** Once approved, a permanent project plan (`docs/planning/issue_XXX.md`) is generated from the draft and committed by the User. This acts as the "Baseline Contract."
+- **Discovery-Led Execution:** Tactics can change in the internal plan as discovery happens, but the delta between the "Baseline Contract" and the final result is a primary subject of the Retrospective.
 
 ### 2. Verified Implementation (RED-GREEN-REFACTOR)
 We use strict **TDD** to ensure the code always meets the Goal:
