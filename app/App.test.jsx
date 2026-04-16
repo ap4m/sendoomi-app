@@ -1,5 +1,5 @@
 import { describe, it, expect, vi, beforeEach } from 'vitest';
-import { render, screen } from '@testing-library/react';
+import { render, screen, waitFor } from '@testing-library/react';
 import App from './App';
 
 describe('App Ingestion UI', () => {
@@ -12,7 +12,7 @@ describe('App Ingestion UI', () => {
   it('should render the welcome screen with no shared data', () => {
     render(<App />);
     expect(screen.getByText(/Welcome to the Choice Engine/i)).toBeInTheDocument();
-    expect(screen.queryByText(/Item Received/i)).not.toBeInTheDocument();
+    expect(screen.getByText(/Ready for your first item/i)).toBeInTheDocument();
   });
 
   it('should display the "Item Received" card when valid share data is present in URL', async () => {
@@ -25,13 +25,13 @@ describe('App Ingestion UI', () => {
 
     render(<App />);
 
-    // Verify card content
-    expect(screen.getByText(/Item Received/i)).toBeInTheDocument();
-    expect(screen.getByText(/Amazon Toy/i)).toBeInTheDocument();
-    expect(screen.getByText(/https:\/\/amzn.eu\/d\/123/i)).toBeInTheDocument();
+    // Verify card content appears after async ingestion
+    expect(await screen.findByText(/Item Received/i)).toBeInTheDocument();
+    expect(screen.getAllByText(/Amazon Toy/i).length).toBeGreaterThan(0);
+    expect(screen.getByText(/added to your queue/i)).toBeInTheDocument();
   });
 
-  it('should cleanup the URL history immediately after ingestion', () => {
+  it('should cleanup the URL history immediately after ingestion', async () => {
     const mockSearch = '?title=Test';
     vi.stubGlobal('location', { 
       search: mockSearch,
@@ -40,11 +40,13 @@ describe('App Ingestion UI', () => {
 
     render(<App />);
 
-    // Verify cleanup was called
-    expect(window.history.replaceState).toHaveBeenCalledWith(
-      {},
-      expect.any(String),
-      '/'
-    );
+    // Verify cleanup was called after async effect completes
+    await waitFor(() => {
+      expect(window.history.replaceState).toHaveBeenCalledWith(
+        {},
+        expect.any(String),
+        '/'
+      );
+    });
   });
 });
