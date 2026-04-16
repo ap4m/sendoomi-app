@@ -31,6 +31,29 @@ Follow these steps to establish a high-fidelity development environment for Send
    npm run dev:www
    ```
 
+## 🌈 Advanced: High-Fidelity Local Environment
+
+To enable full **Cloudflare Web Analytics** and **PWA features** (Service Workers) during development, you must mirror the production environment.
+
+### 1. DNS Spoofing (Local Hostname)
+Map the production-like domain to your local machine by adding this to your `/etc/hosts` file (or `C:\Windows\System32\drivers\etc\hosts` on Windows):
+```text
+127.0.0.1  dev.sendoomi.com
+```
+
+### 2. Port Parity (Standard HTTPS)
+To resolve CORS issues and match production behavior, run the dev server on port **443**. This requires administrative privileges:
+```bash
+sudo npm run dev
+```
+
+### 3. Trust the Local SSL CA
+We use a project-relative SSL store for consistency. To get the "Green Lock" and enable PWA features, import our local Certificate Authority into your browser:
+1. Open your browser's **Certificate Manager** (e.g., Firefox: Settings > Privacy & Security > View Certificates).
+2. In the **Authorities** tab, click **Import...**.
+3. Select **`./.devcerts/rootCA.pem`** from the project root.
+4. Check **"Trust this CA to identify websites"** and restart your browser.
+
 ## 🔍 Local Preview (Wrangler)
 To verify your build on a production-grade Cloudflare runtime:
 
