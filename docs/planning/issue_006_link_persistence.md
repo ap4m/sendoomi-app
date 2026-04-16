@@ -16,17 +16,19 @@ A dashboard that remembers and displays a list of all shared items, enabling par
 - **Goal:** Create the `storage.js` service using the `idb` library.
 - **TDD Requirement:** Define a full Vitest suite (`storage.test.js`) in the **RED** phase before implementing any logic.
 - **Mocking:** Integrate `fake-indexeddb` to ensure stable CI/CD verification.
+- **Status:** [x] Done.
 
 ### Iteration 2: Dashboard Integration
 - **Goal:** Update `App.jsx` to synchronize its state with IndexedDB.
-- **Status:** [x] Done.
+- **Behavior:** Load all items on mount; append and persist item on each new ingestion.
 
 ### Iteration 3: The "Zen" Queue UI
 - **Goal:** Replace the single-item "Echo" card with a list-based view.
-- **Status:** [x] Done.
+- **UI State:** Implement a clean "Ready for your first item" message (no loading spinners).
+- **Out of Scope:** Individual item deletion (Deferred to future issue).
 
 ## 🚦 Decision (Go/No-Go)
 - [x] **Go (Iteration 1):** Persistence Infrastructure / TDD Approved.
-- [x] **Go (Iteration 2):** Dashboard Integration Approved.
-- [x] **Go (Iteration 3):** UI Refinement Approved.
-- [x] **Go:** Full mission graduation confirmed (13/13 tests pass).
+- [ ] **Go (Iteration 2):** Dashboard Integration (Seeking Approval for RED Phase).
+- [ ] **Go (Iteration 3):** UI Refinement (Deferred).
+- [ ] **Go:** Full mission graduation confirmed.
