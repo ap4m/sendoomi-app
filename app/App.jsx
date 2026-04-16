@@ -8,7 +8,8 @@ function App() {
     const params = new URLSearchParams(window.location.search);
     const title = params.get('title');
     const text = params.get('text');
-    const link = params.get('link');
+    // Check both 'link' (new) and 'url' (old/fallback) to handle cached manifests
+    const link = params.get('link') || params.get('url');
 
     if (title || text || link) {
       setSharedData({ title, text, link });
