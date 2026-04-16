@@ -1,39 +1,78 @@
 import { describe, it, expect, vi, beforeEach } from 'vitest';
-import { render, screen } from '@testing-library/react';
+import { render, screen, waitFor } from '@testing-library/react';
 import App from './App';
+import * as storage from './services/storage';
+
+// Mock storage service
+vi.mock('./services/storage', () => ({
+  saveLink: vi.fn(),
+  getAllLinks: vi.fn(() => Promise.resolve([])),
+}));
 
 describe('App Ingestion UI', () => {
   beforeEach(() => {
+    vi.clearAllMocks();
     // Reset location and history mocks before each test
-    vi.stubGlobal('location', { search: '' });
+    vi.stubGlobal('location', { search: '', pathname: '/' });
     vi.stubGlobal('history', { replaceState: vi.fn() });
+    
+    // Default mock for storage
+    storage.getAllLinks.mockResolvedValue([]);
   });
 
-  it('should render the welcome screen with no shared data', () => {
+  it('should render the welcome screen with no shared data', async () => {
     render(<App />);
     expect(screen.getByText(/Welcome to the Choice Engine/i)).toBeInTheDocument();
-    expect(screen.queryByText(/Item Received/i)).not.toBeInTheDocument();
+    await waitFor(() => {
+      expect(screen.queryByText(/Item Received/i)).not.toBeInTheDocument();
+    });
   });
 
-  it('should display the "Item Received" card when valid share data is present in URL', async () => {
-    // Simulate a share target request
-    const mockSearch = '?title=Amazon+Toy&link=https://amzn.eu/d/123';
-    vi.stubGlobal('location', { 
-      search: mockSearch,
-      pathname: '/'
-    });
+  it('should display persistent items from storage on mount', async () => {
+    const mockItems = [
+      { id: 1, title: 'Saved Item 1', link: 'https://link1.com' },
+      { id: 2, title: 'Saved Item 2', link: 'https://link2.com' },
+    ];
+    storage.getAllLinks.mockResolvedValue(mockItems);
 
     render(<App />);
 
-    // Verify card content
-    expect(screen.getByText(/Item Received/i)).toBeInTheDocument();
-    expect(screen.getByText(/Amazon Toy/i)).toBeInTheDocument();
-    expect(screen.getByText(/https:\/\/amzn.eu\/d\/123/i)).toBeInTheDocument();
+    // Wait for async load
+    await waitFor(() => {
+      expect(screen.getByText('Saved Item 1')).toBeInTheDocument();
+      expect(screen.getByText('Saved Item 2')).toBeInTheDocument();
+    });
   });
 
-  it('should cleanup the URL history immediately after ingestion', () => {
+  it('should save a newly ingested item to storage and update the list', async () => {
+    const mockSearch = '?title=New+Toy&link=https://toy.com';
+    vi.stubGlobal('location', { search: mockSearch, pathname: '/' });
+    
+    storage.saveLink.mockResolvedValue({ id: 3, title: 'New Toy', link: 'https://toy.com' });
+    // In actual app, ingestion will trigger a re-fetch or state update
+    storage.getAllLinks.mockResolvedValue([
+      { id: 3, title: 'New Toy', link: 'https://toy.com' }
+    ]);
+
+    render(<App />);
+
+    // Verify saveLink called
+    await waitFor(() => {
+      expect(storage.saveLink).toHaveBeenCalledWith(expect.objectContaining({
+        title: 'New Toy',
+        link: 'https://toy.com'
+      }));
+    });
+
+    // Verify UI updated
+    await waitFor(() => {
+      expect(screen.getByText('New Toy')).toBeInTheDocument();
+    });
+  });
+
+  it('should cleanup the URL history immediately after ingestion', async () => {
     const mockSearch = '?title=Test';
-    vi.stubGlobal('location', { 
+    vi.stubGlobal('location', {
       search: mockSearch,
       pathname: '/'
     });
@@ -41,10 +80,12 @@ describe('App Ingestion UI', () => {
     render(<App />);
 
     // Verify cleanup was called
-    expect(window.history.replaceState).toHaveBeenCalledWith(
-      {},
-      expect.any(String),
-      '/'
-    );
+    await waitFor(() => {
+      expect(window.history.replaceState).toHaveBeenCalledWith(
+        {},
+        expect.any(String),
+        '/'
+      );
+    });
   });
 });

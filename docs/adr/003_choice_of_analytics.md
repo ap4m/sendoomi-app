@@ -13,5 +13,5 @@ We will use **Cloudflare Web Analytics** as our primary observability engine.
 - We will use the **Custom Events** API to track PWA-specific lifecycle events (e.g., Installations).
 
 ## Consequences
-- **Positive:** 100% "Digital Zen" privacy compliance. No cookie banners required. Minimal performance impact.
+- **Positive:** 100% Privacy-First compliance. No cookie banners required. Minimal performance impact.
 - **Negative:** Limited demographic depth compared to GA4 (a trade-off we accept for privacy).

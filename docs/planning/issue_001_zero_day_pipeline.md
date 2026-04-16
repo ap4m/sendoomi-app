@@ -7,7 +7,7 @@ A production-ready repository where every push is verified by a test gate and ev
 
 ## 🗣 Ubiquitous Language (DDD)
 - **Choice Engine:** The core React-powered portion of Sendoomi where kids interact.
-- **Marketing Site (Zen Site):** The promotional root domain site.
+- **Marketing Site:** The promotional root domain site.
 - **Environment Fidelity:** Ensuring local feedback matches the production Cloudflare runtime.
 - **Test Gate:** A mandatory CI step that blocks deployments if unit tests fail.
 

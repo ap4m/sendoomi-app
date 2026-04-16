@@ -19,6 +19,13 @@ To provide a calm, binary, and accessible "choice engine" that bridges the commu
 
 This workflow verifies the mission, working patterns (TDD), and your "Read-Only" status for Git commits.
 
+## 🚀 Manual Ingestion (Testing)
+You can manually add items to the queue by appending query parameters to the URL:
+`?title=Item+Name&link=https://example.com&text=Notes`
+
+**Local Example:**
+`http://localhost:5173/?title=Amazon+Toy&link=https://amzn.to/123`
+
 ## 🤝 How We Work
 We follow a disciplined **RED-GREEN-REFACTOR** pattern:
 1.  **RED:** I (Antigravity) write a failing test case that defines a requirement.
