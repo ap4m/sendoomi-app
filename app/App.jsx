@@ -49,7 +49,7 @@ function App() {
         </div>
       </main>
       <footer className="app-footer">
-        <p>Sendoomi Build v0.1.0-alpha</p>
+        <p>Sendoomi Build v0.1.1-alpha</p>
       </footer>
     </div>
   );
