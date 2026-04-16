@@ -33,3 +33,4 @@ coverage/
 
 # Vite/Vitest
 .vitest.result.json
+.devcerts/

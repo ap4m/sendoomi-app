@@ -6,8 +6,8 @@
   "description": "A calm, binary choice-engine for kids with SEND.",
   "scripts": {
     "clean": "rm -rf dist",
-    "dev": "vite app --config vite.config.js",
-    "dev:www": "vite www --config vite.config.js",
+    "dev": "vite app --config vite.config.js --host",
+    "dev:www": "vite www --config vite.config.js --host",
     "build": "npm run clean && npm run build:app && npm run build:www",
     "build:app": "vite build app --config vite.config.js --outDir ../dist/app --emptyOutDir",
     "build:www": "vite build www --config vite.config.js --outDir ../dist/www --emptyOutDir",
@@ -26,6 +26,7 @@
   "devDependencies": {
     "@vitejs/plugin-react": "^4.7.0",
     "vite": "^6.4.2",
+    "vite-plugin-mkcert": "^1.17.12",
     "vite-plugin-pwa": "^0.21.2",
     "vitest": "^2.1.9",
     "wrangler": "^4.80.0"
