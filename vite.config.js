@@ -1,6 +1,7 @@
-import { defineConfig, loadEnv } from 'vite';
+import { defineConfig, loadEnv, searchForWorkspaceRoot } from 'vite';
 import react from '@vitejs/plugin-react';
 import mkcert from 'vite-plugin-mkcert';
+import { VitePWA } from 'vite-plugin-pwa';
 
 // https://vitejs.dev/config/
 export default defineConfig(({ mode }) => {
@@ -13,9 +14,49 @@ export default defineConfig(({ mode }) => {
     envDir: '../',       
     plugins: [
       react(),
-      mkcert({
+      !process.env.VITEST && mkcert({
         hosts: ['localhost', 'dev.sendoomi.com'],
         savePath: './.devcerts'
+      }),
+      VitePWA({
+        registerType: 'autoUpdate',
+        devOptions: {
+          enabled: true
+        },
+        manifest: {
+          name: 'Sendoomi',
+          short_name: 'Sendoomi',
+          description: 'A calm, binary choice-engine for kids with SEND.',
+          theme_color: '#ffffff',
+          background_color: '#ffffff',
+          display: 'standalone',
+          start_url: '/',
+          scope: '/',
+          icons: [
+            {
+              src: 'icons/logo-192x192.png',
+              sizes: '192x192',
+              type: 'image/png',
+              purpose: 'any'
+            },
+            {
+              src: 'icons/logo-512x512.png',
+              sizes: '512x512',
+              type: 'image/png',
+              purpose: 'maskable'
+            }
+          ],
+          share_target: {
+            action: '/',
+            method: 'GET',
+            enctype: 'application/x-www-form-urlencoded',
+            params: {
+              title: 'title',
+              text: 'text',
+              link: 'url'
+            }
+          }
+        }
       }),
       {
         name: 'analytics-injector',
@@ -41,6 +82,17 @@ export default defineConfig(({ mode }) => {
       https: true,
       strictPort: true,
       port: 443,
+      fs: {
+        // Allow serving files from the workspace root to pick up shared assets and config
+        allow: [
+          searchForWorkspaceRoot(process.cwd())
+        ]
+      }
+    },
+    test: {
+      environment: 'jsdom',
+      globals: true,
+      setupFiles: ['./app/setupTests.js'],
     },
   };
 });

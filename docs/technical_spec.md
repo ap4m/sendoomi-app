@@ -26,6 +26,26 @@ To prevent accidental escapes, the V1 lock will be a **Dead-End View**:
 - **Exit Strategy:** The parent must restart the app or use a device-level "Home" action to return to the curator view.
 - **Goal:** Simple enough for a child to use without triggering accidental "Parent Mode" functions.
 
+## 📱 PWA Capabilities & Compatibility
+
+Sendoomi leverages Progressive Web App standards to provide an "App-like" feel and a streamlined ingestion pipeline.
+
+### 🎁 Web Share Target API
+The "Choice Engine" acts as a native share target. This allows parents to "Share" items directly from browsers or other apps into Sendoomi.
+- **Ingestion Endpoint:** `/` (handled via URL parameters `title`, `text`, and `link`).
+- **Use Case:** Effortless curation of gifts, toys, or experiences.
+
+### 🌐 Browser Compatibility Matrix
+
+| Feature | Chrome / Edge | Firefox Desktop | Safari (macOS) | Mobile (iOS/Android) |
+| :--- | :--- | :--- | :--- | :--- |
+| **"Install" Prompt** | ✅ Native | ❌ Not Supported | ✅ "Add to Dock" | ✅ Fully Supported |
+| **Share Target** | ✅ Supported | ✅ Supported | ✅ Supported | ✅ Fully Supported |
+| **Offline Support** | ✅ Supported | ✅ Supported | ✅ Supported | ✅ Fully Supported |
+
+> [!NOTE]
+> **Firefox Desktop** intentionally discontinued support for native site installation. To verify the "Install" flow locally, use Chrome or a Chromium-based browser.
+
 ## 💾 Storage Strategy (IndexedDB)
 Why **IndexedDB** over LocalStorage?
 1. **Blob Storage:** Ability to store images directly (for screenshot fallbacks or cached product photos).
