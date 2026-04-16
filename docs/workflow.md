@@ -1,71 +1,51 @@
-# Development Philosophy: Feedback First
+# Development Workflow: Predictable Delivery
 
-Sendoomi is developed with **Feedback as a First-Class Citizen**. We believe that building "Feedback Loops" into the process allows us to maintain a linear, predictable, and robust development pace.
+Sendoomi is developed using tight feedback loops to ensure that every change is intentional, verified, and outcome-focused.
 
-## 🔄 The Feedback Lifecycle
+## 🔄 The Development Loop
 
-Every feature or bugfix follows this strict sequence to minimize risk and maximize "Developer Zen."
+Every change follows the **"One Outcome = One Change"** rule. A change is triggered by an Issue with a specific, outcome-focused Goal.
 
-### 1. The Context (Issue & Branch)
-- **Action:** A GitHub Issue defines the problem/goal.
-- **Mapping:** One Issue = One Branch.
-- **Sign-off:** The User performs the final merge and sign-off.
+### 1. Planning Phase
+- **Action:** A Planning Document is created to map the path to the Goal.
+- **Outcome:** The plan defines the "Go/No-Go" gate. We only proceed once the outcome is clearly understood and approved.
 
-### 2. The Feedback Loop (Planning)
-- **Action:** A **Planning Document** is created based on the Issue.
-- **DDD Focus:** Establish the **Ubiquitous Language** and domain model here. The names we use in the plan MUST be the names we use in the code.
-- **Decision:** The plan ends with a "Go/No-Go" decision:
-    - **Go:** Proceed with the implementation.
-    - **Postpone:** Move to a future milestone.
-    - **Ditch:** The issue is invalid or better solved elsewhere.
-- **Iteration:** Complex goals are broken into small, low-risk iterations.
-
-### 3. The Execution (RED-GREEN-REFACTOR)
-We use strict **TDD** (Test-Driven Development) to ensure the code *always* provides feedback on its own correctness.
-- **RED:** Define the requirement with a failing Vitest test using our agreed domain language.
+### 2. Verified Implementation (RED-GREEN-REFACTOR)
+We use strict **TDD** to ensure the code always meets the Goal:
+- **RED:** Define the requirement with a failing test.
 - **GREEN:** Implement the minimal code to pass.
-- **REFACTOR (User-Led):** Technical cleanup and structural optimization (the domain model should already be correct).
+- **REFACTOR (User-Led):** Technical cleanup and structural optimization.
 
-### 4. The Verification (Pipeline & Previews)
-- **Action:** Every push must trigger a **Working Deployment Pipeline**.
-- **Visibility:** Code changes must be verifiable via automated tests and (where applicable) marketing/UI previews.
+### 3. Verification Checklist
+Before any sign-off, the following must be verified:
+- **Correctness:** All tests pass and the local build (`npm run preview`) is error-free.
+- **Explicit Config:** Verify that Vite points correctly to its central config.
+- **Asset Integrity:** All assets are imported via the Vite pipeline (no lazy copies).
+- **Smoke Test:** Perform a manual audit of the browser console for runtime errors.
 
-#### 4.1 Logic & Path Audit (Surgical Standard)
-To prevent "Config Blindness" and "Asset Drift," every change to the project root or build environment MUST include:
-- **Explicit Config:** Verify that Vite explicitly points to its central [**`vite.config.js`**](../vite.config.js) to ensure plugin integrity.
-- **Surgical Asset Import:** Avoid "Lazy Copies" of assets. All assets MUST be imported via the Vite asset-pipeline (e.g., `import logo from './assets/logo.png'`) to ensure production hashing correctness.
-- **Mandatory Smoke Test:** Every sign-off must be preceded by a local [**`npm run preview`**](../package.json) and a browser console audit for runtime errors.
+### 4. Actionable Retrospective
+A retrospective is performed after every branch merge, focusing on **3 key takeaways**.
+- **Rule:** If a retrospective identifies a necessary change to the project's logic or process, the **Core Documentation** (Design Principles, Workflow) MUST be updated immediately to reflect this. This prevents "parallel consideration" drift.
 
-### 5. The Closing Loop (ADR & Retro)
-- **ADR (Architectural Decision Records):** Any decision that changes the system's shape is documented using the [**ADR Template**](../.github/templates/adr_template.md).
-- **Retrospective:** Performed after every branch merge using the [**Retrospective Template**](../.github/templates/retrospective_template.md).
-
-### 6. Audience-Centric Handover
-Before a branch is closed, we must provide documentation tailored to our distinct audiences:
-- **For Parents (End Users):** A "What it does" guide focused on functionality, accessibility, and the "Calm UI" experience.
-- **For Engineers (Agents & Humans):** A "How it works and Why" technical breakdown of the implementation, trade-offs, and future extensibility.
-
-## ⚠️ The "Deviation" Principle
-If an implementation becomes non-linear (e.g., unexpected hurdles, agent confusion, or abandoned paths), we **STOP** and document the deviation.
-- **Action:** Create a **Postmortem/Deviation Document** using the [**Deviation Template**](../.github/templates/deviation_template.md).
-- **Goal:** Capture the problem, circumstances, and remediation steps to prevent recurrence.
-
-## 🛑 Agent Guardrails (Hard-Stop Protocol)
-To ensure **User-Led Control** and prevent "Goal-Completion Obsession," the AI Agent must adhere to the following hard-stops:
-
-### 1. Forbidden Git Actions
-The Agent is strictly **forbidden** from performing [**`git commit`**](../package.json) or [**`git push`**](../package.json) commands unless the User provides a literal, verbatim instruction to do so. The User remains the sole author of the project's history.
-
-### 2. Unauthorized Scope Expansion
-The Agent is **forbidden** from creating new `Issue Plans` or `Planning Documents` unless the User explicitly requests the start of a new issue.
-
-### 3. Consultative Confirmation
-Every action request that appears consultative (e.g., *"I think we should commit this"*) MUST be met with an Agent confirmation question (e.g., *"Shall I execute the commit, or would you like to lead it?"*) before any execution occurs.
-
-### 4. Wait-State Approval
-The Agent is strictly **forbidden** from executing any code-changing tool (`replace_file_content`, etc.) or any subagent task (`browser_subagent`, etc.) until the User has sent a message that explicitly contains an approval keyword: **"Approved,"** **"Go,"** **"Execute,"** or **"LGTM."** 
-
-- **No Emergency Context-Switch:** Even when the User reports a bug/error (e.g., a build failure), the Agent MUST NOT execute a fix unless they first propose it and receive an explicit "Go." 
+### 5. ADR (Architectural Decision Records)
+ADRs are created only when a **Significant Decision** is made that changes the system's shape. They are not required for every branch.
 
 ---
-*By following this workflow, we ensure that Sendoomi remains a robust, reliable, and "Audience Dependent" (User, Agent, Engineer) product.*
+
+## ⚠️ The "Stop" Principle
+If an implementation becomes non-linear or hits an unexpected hurdle, the Agent must **STOP** and document the situation. 
+- **Action:** Use a Deviation Document to capture the problem and remediate the path before resuming.
+
+---
+
+## 🛑 Agent Guardrails (Hard-Stop Protocol)
+
+To ensure **User-Led Control**, the AI Agent must follow these strict rules:
+
+1.  **Forbidden Git Actions:** The Agent is strictly **forbidden** from running `git commit` or `git push`. The User is the sole author of the project history.
+2.  **Wait-State Approval:** The Agent must **STOP** and wait for an explicit **"Approved," "Go," "Execute," or "LGTM"** before running any code-changing tool or destructive Git command (e.g., `git rm`, `git add`, `git reset`).
+3.  **No Emergency Bypasses:** Build failures or "obvious" fixes are NOT reasons to bypass the Wait-State. Every fix must be proposed and approved.
+4.  **Sandbox Discipline:** The Agent is forbidden from modifying any file not explicitly listed in an approved Implementation Plan.
+
+---
+*By following this loop, we ensure that Sendoomi remains simple, robust, and user-driven.*

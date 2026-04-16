@@ -23,7 +23,7 @@ A dashboard that remembers and displays a list of all shared items, enabling par
 - **Behavior:** Load all items on mount; append and persist item on each new ingestion.
 - **Status:** [x] Done.
 
-### Iteration 3: The "Zen" Queue UI
+### Iteration 3: The Simple Queue UI
 - **Goal:** Replace the single-item "Echo" card with a list-based view.
 - **UI State:** Implement a clean "Ready for your first item" message (no loading spinners).
 - **Out of Scope:** Individual item deletion (Deferred to future issue).

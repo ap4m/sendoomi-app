@@ -1,13 +1,11 @@
-# Design System: Sendoomi
+# Design Principles: Sendoomi Choice Engine
 
-## 🎨 Aesthetic: "Digital Zen"
-Sendoomi is **Calm, Neutral, and Minimal**. 
-We prioritize **Accessibility** over "Premium Flashiness."
+## 🎯 Core Goal: Cognitive Load Reduction
+Sendoomi is a high-contrast, distraction-free interface designed for children with SEND, focusing on reducing cognitive load for both users and developers.
 
 ### 🚫 Non-Goals
-1. **No Rewards:** Avoid stars, confetti, or "Good job!" animations. We are not a game.
-2. **No Branding:** Remove store logos (Amazon, eBay) and even Sendoomi's own branding in the "Kid View."
-3. **No Words:** The interface for children should be purely visual.
+1. **Minimize Sensory Overload:** Avoid rewards, stars, confetti, or "Good job!" animations. Sendoomi is a choice-engine for real-world items, not a source of digital entertainment.
+2. **Minimal Branding:** Keep the "Kid View" free of store logos (Amazon, eBay) and even Sendoomi's own branding to prevent distraction.
 
 ## 🌈 Color Palette
 Soft, high-contrast, but limited.
@@ -27,8 +25,13 @@ Soft, high-contrast, but limited.
 ## 📱 Interaction Guidelines
 1. **Large Tapping Targets:** Buttons must be at least **48x48px** (ideally larger).
 2. **Spacing:** Massive gutters between items to prevent accidental "Fat Finger" taps.
-3. **No Horizontal Scroll:** If possible, stick to vertical scrolling or single-item "Tinderswipe" styles.
+3. **No Horizontal Scroll:** Use vertical scrolling or single-item "swipe" styles to maintain path clarity.
 4. **Haptics:** Simple haptic feedback on choice (if supported) to provide sensory confirmation.
+
+## 🗣 Adaptable Communication Styles
+Communication should be adaptable. The app should allow for choosing or discovering the communication style (visual, audio, etc.) that works best for the child.
+- **Visual Primary:** High-res, clear product photos on neutral backgrounds.
+- **Audio Augmentation (Future):** Ability to read item titles or play confirmation sounds based on child needs.
 
 ## 🛠 Features
 - **Neutral Backgrounds:** Stored item images should be cropped or displayed on a plain surface.

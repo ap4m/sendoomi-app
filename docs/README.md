@@ -7,8 +7,8 @@ How to clone, install, and run the developer environment (Vite & Wrangler).
 Detailed analysis of the SEND audience, the problem of overstimulating e-commerce, and the "walled-garden" solution.
 
 ### 3. [Design Principles](design_principles.md)
-**The "Digital Zen" / Calm UI guidelines.**  
-Rules for high-contrast, binary choices, zero-distraction layouts, and the "Zen" aesthetic.
+**Cognitive Load Reduction / Distraction-free guidelines.**  
+Rules for high-contrast, binary choices, and zero-distraction layouts.
 
 ### 3. [Technical Specification](technical_spec.md)
 **Architecture and Technology choices.**  

@@ -44,7 +44,7 @@ function App() {
       </header>
       <main className="app-main">
         <h1>Welcome to the Choice Engine</h1>
-        <p className="subtitle">Digital Zen is loading...</p>
+        <p className="subtitle">Choice Engine is loading...</p>
         
         <div className="ingestion-list">
           {items.length > 0 ? (
