@@ -31,13 +31,13 @@ A production-ready repository where every push is verified by a test gate and ev
 
 ### Iteration 5: Observability (Privacy-First)
 - **Goal:** Track traffic impressions and PWA lifecycle events (Installs) using Cloudflare Web Analytics.
-- **Status:** [/] Postponed (Architectural priority shift)
+- **Status:** [x] Done
 
 ### Iteration 6: Subdomain Parity (Environment Decoupling)
 - **Goal:** Decouple Marketing ([**sendoomi.com**](https://sendoomi.com)) and App ([**app.sendoomi.com**](https://app.sendoomi.com)).
 - **TDD Requirement:** Independent build outputs that both serve from the Root (`/`).
-- **Status:** [/] In-Progress (Awaiting Go/No-Go)
+- **Status:** [x] Done
 
 ## 🚦 Decision (Go/No-Go)
 - [x] **Go (1-4):** Foundation approved.
-- [ ] **Go (6):** Proceed with Subdomain Parity implementation.
+- [x] **Go (6):** Proceed with Subdomain Parity implementation.
